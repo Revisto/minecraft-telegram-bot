@@ -6,7 +6,7 @@ def number_of_online_players(update, context):
     update.message.reply_text(f'There are {Minecraft_Status().get_online_users_count()} online players in minecraft.')
 
 def names_of_online_players(update, context):
-    update.message.reply_text(f"Online players' usernames in minecraft are {Minecraft_Status().get_online_users_names()}")
+    update.message.reply_text(f"Online players' usernames in minecraft are \n{Minecraft_Status().get_online_users_names()}")
 
 def main():
     updater = Updater(setting.telegram_access_token, use_context=True)
