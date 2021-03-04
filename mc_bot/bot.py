@@ -12,8 +12,8 @@ def main():
     updater = Updater(setting.telegram_access_token, use_context=True)
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler("numberPlayers", number_of_online_players))
-    dp.add_handler(CommandHandler("Players", names_of_online_players))
+    dp.add_handler(CommandHandler("numberplayers", number_of_online_players))
+    dp.add_handler(CommandHandler("players", names_of_online_players))
 
     updater.start_polling()
     updater.idle()
