@@ -1,7 +1,7 @@
 # MineCraft Telgram Bot
 ## _A Telegram Bot that can manage your mc server and inform you_
 
-MTB is a fast, customizable, useful telegram bot for your minecraft server.
+MTB is a fast, customizable, useful telegram bot for your Minecraft server.
 
 ## ✨ Features ( till now )
 
