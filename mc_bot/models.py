@@ -1,6 +1,7 @@
 from mcstatus import MinecraftServer
 from os import listdir
 from os.path import isfile, join
+from random import choice
 import requests
 import setting
 
@@ -28,7 +29,12 @@ class Minecraft_Status:
 
 class Files:
     def get_files_names_path_in_directory(self, path="./"):
-        return [f for f in listdir(path) if isfile(join(path, f))]
+        if not path.endswith("/"):
+            path = path+"/"
+        return [path+f for f in listdir(path) if isfile(join(path, f))]
 
     def get_path_directory_of_videos(self, number):
-        return f"./videos/{number}"
+        return f"./mc_bot/videos/{number}"
+
+    def random_choice_from_list(self, the_list):
+        return choice(the_list)
