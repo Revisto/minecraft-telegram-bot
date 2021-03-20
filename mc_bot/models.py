@@ -34,7 +34,7 @@ class Files:
         return [path+f for f in listdir(path) if isfile(join(path, f))]
 
     def get_path_directory_of_videos(self, number):
-        return f"./mc_bot/videos/{number}"
+        return f"./videos/{number}"
 
     def random_choice_from_list(self, the_list):
         return choice(the_list)
