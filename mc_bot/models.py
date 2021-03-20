@@ -22,5 +22,3 @@ class Minecraft_Status:
         online_users_names_list = self.mc_server_query.players.names
         online_users_names = ", \n".join(online_users_names_list)
         return online_users_names if online_users_names != "" else None
-
-print (Minecraft_Status().get_online_users_names())
