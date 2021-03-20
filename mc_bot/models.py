@@ -1,4 +1,6 @@
 from mcstatus import MinecraftServer
+from os import listdir
+from os.path import isfile, join
 import requests
 import setting
 
@@ -22,3 +24,11 @@ class Minecraft_Status:
         online_users_names_list = self.mc_server_query.players.names
         online_users_names = ", \n".join(online_users_names_list)
         return online_users_names if online_users_names != "" else None
+
+
+class Files:
+    def get_files_names_path_in_directory(self, path="./"):
+        return [f for f in listdir(path) if isfile(join(path, f))]
+
+    def get_path_directory_of_videos(self, number):
+        return f"./videos/{number}"
