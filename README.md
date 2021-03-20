@@ -41,7 +41,7 @@ telegram_robot_access_token = <TELEGRAM_ACCESS_TOKEN>
 Make sure that you have done all installation steps and made .env files.
 then, build it and run it.
 ```sh
-docker build -t mc_bot
+docker build -t mc_bot .
 docker run -d mc_bot
 ```
 
