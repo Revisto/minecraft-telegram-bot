@@ -26,6 +26,9 @@ class Minecraft_Status:
         online_users_names = ", \n".join(online_users_names_list)
         return online_users_names if online_users_names != "" else None
 
+    def get_online_users_list_names(self):
+        online_users_names_list = self.mc_server_query.players.names
+        return online_users_names_list
 
 class Files:
     def get_files_names_path_in_directory(self, path="./"):
