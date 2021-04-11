@@ -2,7 +2,7 @@ from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 from validator_collection import is_not_empty
 
 import setting
-from models import Files, Minecraft_Status, General, Features
+from models import Files, Minecraft_Status, Features
 
 
 def number_of_online_players(update, context):
