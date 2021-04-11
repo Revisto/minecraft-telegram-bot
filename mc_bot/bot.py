@@ -2,7 +2,7 @@ from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 from validator_collection import is_not_empty
 
 import setting
-from models import Files, Minecraft_Status, General
+from models import Files, Minecraft_Status, General, Features
 
 
 def number_of_online_players(update, context):
@@ -17,13 +17,7 @@ def number_of_online_players(update, context):
 
 def names_of_online_players(update, context):
     update.message.reply_text(f"Online players' usernames in minecraft are \n{Minecraft_Status().get_online_users_names()}")
-    users_pictures = []
-    for username in Minecraft_Status().get_online_users_list_names():
-        users_pictures.append(General().users_picture_finder(username))
-        
-    if is_not_empty(users_pictures):
-        respone_photo_path = Files().random_choice_from_list(users_pictures)
-        update.message.reply_photo(open(respone_photo_path, "rb"))
+    Features().send_picture_of_online_users(Minecraft_Status().get_online_users_list_names(), update)
 
 def main():
     updater = Updater(setting.telegram_access_token, use_context=True)

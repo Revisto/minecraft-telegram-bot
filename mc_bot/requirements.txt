@@ -3,3 +3,4 @@ python-telegram-bot
 mcstatus
 requests
 validator_collection
+Pillow
