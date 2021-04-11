@@ -38,3 +38,13 @@ class Files:
 
     def random_choice_from_list(self, the_list):
         return choice(the_list)
+
+class General:
+    def users_picture_finder(self, username):
+        username = username.lower()
+        users_pictures = {
+            "mehrshad":["./users_pictures/mehrshad.jpg"]
+        }
+        if username in users_pictures:
+            return choice(users_pictures[username])
+        return None
