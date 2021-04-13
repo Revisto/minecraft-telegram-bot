@@ -76,6 +76,7 @@ class Features:
     def send_picture_of_online_users(self, online_users, update):
         random_pictures_of_online_users = []
         for user in online_users:
+            user = user.lower()
             user_pictures_path = f"users_pictures/{user}"
             users_pictures = Files().get_files_names_path_in_directory(user_pictures_path)
             if not is_not_empty(users_pictures):
@@ -85,4 +86,3 @@ class Features:
         if is_not_empty(random_pictures_of_online_users):
             image_bytes = Features().merge_images_side_by_side(random_pictures_of_online_users)
             update.message.reply_photo(image_bytes)
-            
