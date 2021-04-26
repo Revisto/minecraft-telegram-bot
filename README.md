@@ -3,6 +3,8 @@
 
 MTB is a fast, customizable, useful telegram bot for your Minecraft server.
 
+![](https://revisto.ir/static/projects-cover/minecraft-telegram-bot.jpg)
+
 ## ✨ Features ( till now )
 
 - Number of online users
