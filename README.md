@@ -5,7 +5,7 @@ MTB is a fast, customizable, useful telegram bot for your Minecraft server.
 
 ![](https://revisto.ir/static/projects-cover/minecraft-telegram-bot.jpg)
 
-## ✨ Features ( till now )
+## ✨ Features (till now)
 
 - Number of online users
 - Usernames of online users
@@ -33,9 +33,9 @@ cp mc_bot/.env.example .env
 ```
 .env file contains your minecraft server and your telegram bot data. fill it like this:
 ```
-minecraft_server_ip = <IP>
-minecraft_server_port = <PORT>
-telegram_robot_access_token = <TELEGRAM_ACCESS_TOKEN>
+minecraft_server_ip=<IP>
+minecraft_server_port=<PORT>
+telegram_robot_access_token=<TELEGRAM_ACCESS_TOKEN>
 ```
 
 ## Docker
