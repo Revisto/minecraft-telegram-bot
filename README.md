@@ -9,6 +9,7 @@ MTB is a fast, customizable, useful telegram bot for your Minecraft server.
 
 - Number of online users
 - Usernames of online users
+- Merging and sending pictures of online users
 
 ## ⚙️ Installation
 
@@ -37,6 +38,18 @@ minecraft_server_ip=<IP>
 minecraft_server_port=<PORT>
 telegram_robot_access_token=<TELEGRAM_ACCESS_TOKEN>
 ```
+
+## Adding Pictures of Users
+You can add pictures of your Minecraft server users in the ```users_pictures``` directory. Create a subdirectory for each user with their username and add their pictures there. For example:
+```sh
+users_pictures/revisto:
+rev.jpg  another_pic.jpg
+
+users_pictures/mehrshad:
+mehrshad.jpg  photo_2024-01-31_10-31-26.jpg
+```
+
+The bot will automatically merge these pictures and send them when requested.
 
 ## Docker
 
