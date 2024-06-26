@@ -1,3 +1,4 @@
 .env
 .vscode/settings.json
 mc_bot/__pycache__
+users_pictures/
