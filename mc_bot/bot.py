@@ -1,34 +1,64 @@
-from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
-from validator_collection import is_not_empty
+from telegram import Update
+from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+from random import choice
 
-import setting
-from models import Files, Minecraft_Status, Features
+from config import Config
+from minecraft_service import Minecraft_Status
+from file_service import FileManager, ImageFeatures
 
 
-def number_of_online_players(update, context):
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Send a message when the command /start is issued."""
+    await update.message.reply_text(
+        "I'm Revisto's Minecraft Bot,\n/players - to get the names of online players\n/numberplayers - to get the number of online players\n\n",
+    )
+
+async def number_of_online_players(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Send the number of online players."""
     online_users_count = Minecraft_Status().get_online_users_count()
-    path_of_gifs_related_to_online_users_count = Files().get_path_directory_of_videos(online_users_count)
-    gifs_related_to_online_users_count = Files().get_files_names_path_in_directory(path_of_gifs_related_to_online_users_count)
-    update.message.reply_text(f'There are {online_users_count} online players in minecraft.')
-    if is_not_empty(gifs_related_to_online_users_count):
-        respone_gif_path = Files().random_choice_from_list(gifs_related_to_online_users_count)
-        update.message.reply_animation(open(respone_gif_path, "rb"))
-        
+    if online_users_count.get("status") == "error":
+        await update.message.reply_text(online_users_count.get("message"))
+        return
+    
+    gifs = FileManager().get_gifs(online_users_count.get("online_users_count"))
+    await update.message.reply_text(f'There are {online_users_count.get("online_users_count")} online players in minecraft.')
+    if gifs != []: 
+        respone_gif_path = choice(gifs)
+        await update.message.reply_animation(open(respone_gif_path, "rb"))
 
-def names_of_online_players(update, context):
-    update.message.reply_text(f"Online players' usernames in minecraft are \n{Minecraft_Status().get_online_users_names()}")
-    Features().send_picture_of_online_users(Minecraft_Status().get_online_users_list_names(), update)
+async def names_of_online_players(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Send the names of online players."""
+    online_users_names = Minecraft_Status().get_online_users_names()
+    if online_users_names.get("status") == "error":
+        await update.message.reply_text(online_users_names.get("message"))
+        return
+    
+    if online_users_names.get("online_users_names") == []:
+        await update.message.reply_text("No online players.")
+        return
+    
+    names_list = [user["name"] for user in online_users_names.get("online_users_names", [])]
+    names = "\n".join([user["name"] for user in online_users_names.get("online_users_names", [])])
+    await update.message.reply_text(f"Online players' usernames in minecraft are \n{names}")
+    users_pictures = ImageFeatures.generate_users_pictures(names_list)
+    if users_pictures is not None:
+        await update.message.reply_photo(users_pictures)
 
-def main():
-    updater = Updater(setting.telegram_access_token, use_context=True)
-    dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler("numberplayers", number_of_online_players))
-    dp.add_handler(CommandHandler("players", names_of_online_players))
+def main() -> None:
+    """Start the bot."""
+    # Create the Application and pass it your bot's token.
+    application = Application.builder().token(Config.TELEGRAM_ACCESS_TOKEN).build()
 
-    updater.start_polling()
-    updater.idle()
+    # on different commands - answer in Telegram
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("help", start))
+    application.add_handler(CommandHandler("numberplayers", number_of_online_players))
+    application.add_handler(CommandHandler("players", names_of_online_players))
+
+    # Run the bot until the user presses Ctrl-C
+    application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
