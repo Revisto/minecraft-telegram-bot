@@ -47,7 +47,7 @@ async def names_of_online_players(update: Update, context: ContextTypes.DEFAULT_
         await update.message.reply_text("No online players.")
         return
     
-    names_list = [user["name"] for user in online_users_names.get("online_users_names", [])]
+    names_list = [user["name_clean"] for user in online_users_names.get("online_users_names", [])]
     names = "\n".join(names_list)
     await update.message.reply_text(f"Online players' usernames in minecraft are \n{names}")
     users_pictures = ImageFeatures.generate_users_pictures(names_list)
